@@ -1178,10 +1178,6 @@ function closeCart(){ cartPanel.classList.remove('open'); cartOverlay.classList.
 document.getElementById('cartOpenBtn').addEventListener('click', openCart);
 document.getElementById('cartCloseBtn').addEventListener('click', closeCart);
 cartOverlay.addEventListener('click', closeCart);
-document.getElementById('checkoutBtn').addEventListener('click', ()=>{
-  if(Object.keys(cart).length===0) return;
-  alert('This is a demo page — checkout isn\'t connected yet. Your basket total was ' + document.getElementById('cartTotal').textContent + '.');
-});
 
 renderFilterBar();
 renderVendorGrid();
@@ -1266,7 +1262,7 @@ document.getElementById('sendOtpBtn').addEventListener('click', async ()=>{
     email,
     options:{
       shouldCreateUser: true,
-      emailRedirectTo: 'https://tazadoor.netlify.app',
+      emailRedirectTo: 'https://tazadoor.vercel.app',
     }
   });
   btn.disabled = false; btn.textContent = 'Link भेजें';
@@ -1306,9 +1302,13 @@ async function loadAdminOrders(){
   const tbody = document.getElementById('adminOrderBody');
   tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--ink-soft);">Loading...</td></tr>';
 
-  const {data: orders, error} = await sb.from('orders').select('*, profiles(full_name, phone, address)').order('created_at', {ascending:false});
+  // Fetch orders and profiles separately to avoid join issues
+  const {data: orders, error} = await sb.from('orders').select('*').order('created_at', {ascending:false});
+  if(error){ tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:#FF6B6B;">Error: ${error.message}</td></tr>`; return; }
 
-  if(error || !orders){ tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:red;">Error loading orders</td></tr>'; return; }
+  const {data: profiles} = await sb.from('profiles').select('*');
+  const profileMap = {};
+  (profiles||[]).forEach(p => profileMap[p.id] = p);
 
   // Update stats
   document.getElementById('statTotal').textContent = orders.length;
@@ -1320,17 +1320,17 @@ async function loadAdminOrders(){
   if(orders.length===0){ tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--ink-soft);">अभी कोई order नहीं है।</td></tr>'; return; }
 
   tbody.innerHTML = orders.map(o => {
-    const p = o.profiles || {};
+    const p = profileMap[o.user_id] || {};
     const items = Array.isArray(o.items) ? o.items.map(it=>`${it.name} ×${it.qty} (${it.vendor})`).join('<br>') : '—';
     const date = new Date(o.created_at).toLocaleString('hi-IN');
     const shortId = o.id.substring(0,8).toUpperCase();
     return `<tr>
       <td class="mono" style="font-size:0.75rem;">${shortId}</td>
-      <td><strong>${p.full_name||'—'}</strong></td>
+      <td><strong style="color:#fff;">${p.full_name||'—'}</strong></td>
       <td>${p.phone||'—'}</td>
       <td style="max-width:160px;font-size:0.78rem;">${p.address||'—'}</td>
       <td><div class="items-list">${items}</div></td>
-      <td class="mono">₹${o.total_amount||0}</td>
+      <td class="mono" style="color:var(--sunrise);">₹${o.total_amount||0}</td>
       <td style="font-size:0.75rem;white-space:nowrap;">${date}</td>
       <td>
         <select class="status-select" data-order-id="${o.id}" onchange="updateOrderStatus(this)">
@@ -1443,7 +1443,8 @@ document.getElementById('checkoutBtn').addEventListener('click', async ()=>{
   Object.keys(cart).forEach(k => delete cart[k]);
   updateCartUI();
   document.getElementById('orderSuccess').style.display = 'block';
-  setTimeout(()=>{ document.getElementById('orderSuccess').style.display = 'none'; }, 5000);
+  // Don't auto-hide — customer needs to see GPay number
+  // Cart clears but success stays until cart is reopened
 });
 </script>
 
