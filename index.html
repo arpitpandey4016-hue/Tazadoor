@@ -727,17 +727,20 @@ document.getElementById('goAheadBtn').addEventListener('click', function(){
       <h2>नमस्ते 🙏</h2>
       <button onclick="closeModal('loginModal')" style="background:none;border:none;font-size:1.5rem;color:var(--ink-soft);cursor:pointer;line-height:1;">×</button>
     </div>
-    <p>अपना ईमेल दर्ज करें — हम आपको एक Login Link भेजेंगे।</p>
+    <p>अपना ईमेल दर्ज करें — हम आपको एक 6 अंकों का OTP कोड भेजेंगे।</p>
     <div class="modal-error" id="loginError"></div>
     <div id="loginStep1">
       <input class="modal-input" type="email" id="emailInput" placeholder="आपका ईमेल पता" autocomplete="email"/>
-      <button class="modal-btn" id="sendOtpBtn">Login Link भेजें</button>
+      <button class="modal-btn" id="sendOtpBtn">OTP भेजें</button>
     </div>
     <div id="loginStep2" style="display:none;">
-      <p style="color:var(--leaf-dark);font-weight:600;font-size:0.95rem;">✅ आपके ईमेल पर एक Login Link भेज दिया गया है।</p>
-      <p style="font-size:0.85rem;color:var(--ink-soft);">अपना ईमेल खोलें और "Confirm your email" लिंक पर क्लिक करें — आप automatically login हो जाएंगे।</p>
+      <p style="color:var(--leaf);font-weight:600;font-size:0.95rem;">✅ OTP आपके ईमेल पर भेज दिया गया है।</p>
+      <p style="font-size:0.82rem;color:var(--ink-soft);">अपना Gmail खोलें और 6 अंकों का कोड यहाँ दर्ज करें।</p>
+      <input class="modal-input" type="number" id="otpInput" placeholder="6 अंकों का OTP कोड" maxlength="6" inputmode="numeric"/>
+      <button class="modal-btn" id="verifyOtpBtn">Verify करें</button>
+      <button onclick="document.getElementById('loginStep1').style.display='block';document.getElementById('loginStep2').style.display='none';" style="background:none;border:none;color:var(--ink-soft);font-size:0.8rem;margin-top:10px;cursor:pointer;width:100%;text-align:center;">← दूसरा ईमेल डालें</button>
     </div>
-    <div class="modal-note">आपकी जानकारी सुरक्षित है और किसी के साथ साझा नहीं की जाएगी।</div>
+    <div class="modal-note">आपकी जानकारी सुरक्षित है।</div>
   </div>
 </div>
 
@@ -1250,7 +1253,7 @@ function closeModal(id){ document.getElementById(id).classList.remove('open'); }
 // ---------- Login Nav Button ----------
 document.getElementById('loginNavBtn').addEventListener('click', ()=> openModal('loginModal'));
 
-// ---------- Send Magic Link ----------
+// ---------- Step 1: Send OTP ----------
 document.getElementById('sendOtpBtn').addEventListener('click', async ()=>{
   const email = document.getElementById('emailInput').value.trim();
   const errEl = document.getElementById('loginError');
@@ -1260,15 +1263,27 @@ document.getElementById('sendOtpBtn').addEventListener('click', async ()=>{
   btn.disabled = true; btn.textContent = 'भेजा जा रहा है...';
   const {error} = await sb.auth.signInWithOtp({
     email,
-    options:{
-      shouldCreateUser: true,
-      emailRedirectTo: 'https://tazadoor.vercel.app',
-    }
+    options:{ shouldCreateUser:true }
   });
-  btn.disabled = false; btn.textContent = 'Link भेजें';
+  btn.disabled = false; btn.textContent = 'OTP भेजें';
   if(error){ errEl.textContent = 'Error: ' + error.message; errEl.style.display='block'; return; }
   document.getElementById('loginStep1').style.display = 'none';
   document.getElementById('loginStep2').style.display = 'block';
+});
+
+// ---------- Step 2: Verify OTP ----------
+document.getElementById('verifyOtpBtn').addEventListener('click', async ()=>{
+  const email = document.getElementById('emailInput').value.trim();
+  const token = document.getElementById('otpInput').value.trim();
+  const errEl = document.getElementById('loginError');
+  errEl.style.display = 'none';
+  if(!token || token.length < 6){ errEl.textContent = 'कृपया 6 अंकों का OTP दर्ज करें।'; errEl.style.display='block'; return; }
+  const btn = document.getElementById('verifyOtpBtn');
+  btn.disabled = true; btn.textContent = 'Verify हो रहा है...';
+  const {error} = await sb.auth.verifyOtp({ email, token, type:'email' });
+  btn.disabled = false; btn.textContent = 'Verify करें';
+  if(error){ errEl.textContent = 'गलत OTP। कृपया दोबारा कोशिश करें।'; errEl.style.display='block'; return; }
+  // onAuthStateChange handles the rest
 });
 
 // ---------- Save Profile ----------
@@ -1427,6 +1442,7 @@ document.getElementById('checkoutBtn').addEventListener('click', async ()=>{
     vendor: c.vendorName,
   }));
 
+  // Save total BEFORE clearing cart
   const totalText = document.getElementById('cartTotal').textContent;
   const totalNum = parseInt(totalText.replace(/[^0-9]/g,'')) || 0;
 
@@ -1440,11 +1456,24 @@ document.getElementById('checkoutBtn').addEventListener('click', async ()=>{
   btn.disabled = false; btn.textContent = 'Order दें';
   if(error){ alert('Order नहीं हो सका: ' + error.message); return; }
 
-  Object.keys(cart).forEach(k => delete cart[k]);
-  updateCartUI();
+  // Build order summary to show in success box
+  const itemsSummary = items.map(it=>`${it.name} ×${it.qty} = ₹${it.qty*it.price}`).join('<br>');
   document.getElementById('orderSuccess').style.display = 'block';
-  // Don't auto-hide — customer needs to see GPay number
-  // Cart clears but success stays until cart is reopened
+  document.getElementById('orderSuccess').innerHTML = `
+    <h3>✅ Order मिल गया!</h3>
+    <p style="font-size:0.82rem;color:var(--ink-soft);margin:4px 0 10px;">आपका ऑर्डर सफलतापूर्वक दर्ज हो गया है।</p>
+    <div style="font-size:0.8rem;color:#ccc;margin-bottom:10px;line-height:1.8;">${itemsSummary}</div>
+    <div style="font-weight:700;color:#fff;margin-bottom:14px;font-family:'IBM Plex Mono',monospace;">कुल: ₹${totalNum}</div>
+    <div style="background:rgba(0,200,90,0.08);border:1px solid rgba(0,200,90,0.25);border-radius:12px;padding:14px;">
+      <div style="font-size:0.85rem;font-weight:700;color:#fff;margin-bottom:6px;">💸 Payment करें</div>
+      <div style="font-size:0.82rem;color:var(--ink-soft);margin-bottom:10px;">GPay / PhonePe / Paytm से payment करें:</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,var(--sunrise),#FFD700);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:0.05em;">📱 6207733534</div>
+      <div style="font-size:0.75rem;color:var(--ink-soft);margin-top:6px;">Arpit Pandey के नाम पर भेजें</div>
+    </div>
+  `;
+
+  // Keep cart intact so customer can see what they ordered
+  // Cart stays until they manually remove items
 });
 </script>
 
