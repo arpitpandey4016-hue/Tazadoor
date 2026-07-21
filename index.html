@@ -664,7 +664,8 @@ document.getElementById('goAheadBtn').addEventListener('click', function(){
       <button class="btn-ghost" onclick="document.getElementById('howitworks').scrollIntoView({behavior:'smooth'})">How delivery works</button>
     </div>
     <div class="hero-stats">
-      <div><div class="stat-num">4</div><div class="stat-label">grocery stores</div></div>
+      <div><div class="stat-num">1</div><div class="stat-label">किराना स्टोर</div></div>
+      <div><div class="stat-num">15+</div><div class="stat-label">product categories</div></div>
       <div><div class="stat-num">2</div><div class="stat-label">milk suppliers</div></div>
     </div>
   </div>
@@ -837,88 +838,113 @@ const ICONS = {Dairy:'🥛', Grocery:'🧺'};
 
 const GROCERY_CATALOG = [
   {group:'namak', groupNameHi:'नमक', groupNameEn:'Namak', icon:'🧂', brands:[
-    {id:'tata-namak', nameHi:'टाटा आयोडीन युक्त नमक', nameEn:'Tata Iodised Namak', unit:'1 kg', price:28},
-    {id:'annapurna-namak', nameHi:'अन्नपूर्णा नमक', nameEn:'Annapurna Salt', unit:'1 kg', price:25},
-    {id:'aashirvaad-namak', nameHi:'आशीर्वाद नमक', nameEn:'Aashirvaad Salt', unit:'1 kg', price:27},
-    {id:'captain-cook-namak', nameHi:'कैप्टन कुक नमक', nameEn:'Captain Cook Salt', unit:'1 kg', price:22},
-    {id:'normal-namak', nameHi:'साधारण नमक', nameEn:'Normal Namak', unit:'1 kg', price:18},
+    {id:'tata-namak', nameHi:'टाटा नमक', nameEn:'Tata Salt', unit:'1 kg', mrp:28, price:33},
+    {id:'annapurna-namak', nameHi:'अन्नपूर्णा नमक', nameEn:'Annapurna Salt', unit:'1 kg', mrp:24, price:29},
+    {id:'aashirvaad-namak', nameHi:'आशीर्वाद नमक', nameEn:'Aashirvaad Salt', unit:'1 kg', mrp:26, price:31},
+    {id:'captain-cook-namak', nameHi:'कैप्टन कुक नमक', nameEn:'Captain Cook Salt', unit:'1 kg', mrp:20, price:25},
+    {id:'normal-namak', nameHi:'साधारण नमक', nameEn:'Normal Namak', unit:'1 kg', mrp:15, price:20},
   ]},
   {group:'chini', groupNameHi:'चीनी', groupNameEn:'Chini', icon:'🍚', brands:[
-    {id:'madhur-chini', nameHi:'मधुर चीनी', nameEn:'Madhur Sugar', unit:'1 kg', price:48},
-    {id:'dhampure-chini', nameHi:'धामपुर चीनी', nameEn:'Dhampure Sugar', unit:'1 kg', price:50},
-    {id:'normal-chini', nameHi:'साधारण चीनी', nameEn:'Loose Chini', unit:'1 kg', price:45},
+    {id:'madhur-chini', nameHi:'मधुर चीनी', nameEn:'Madhur Sugar', unit:'1 kg', mrp:46, price:51},
+    {id:'dhampure-chini', nameHi:'धामपुर चीनी', nameEn:'Dhampure Sugar', unit:'1 kg', mrp:48, price:53},
+    {id:'normal-chini', nameHi:'साधारण चीनी', nameEn:'Loose Chini', unit:'1 kg', mrp:43, price:48},
   ]},
-  {group:'haldi', groupNameHi:'हल्दी पैकेट वाला', groupNameEn:'Haldi Packet Wala', icon:'🌿', brands:[
-    {id:'haldiram', nameHi:'हल्दीराम हल्दी', nameEn:'Haldiram Haldi', unit:'100 g', price:32},
-    {id:'everest-haldi', nameHi:'एवरेस्ट हल्दी', nameEn:'Everest Turmeric Powder', unit:'100 g', price:38},
-    {id:'mdh-haldi', nameHi:'एमडीएच हल्दी', nameEn:'MDH Turmeric Powder', unit:'100 g', price:42},
-    {id:'catch-haldi', nameHi:'कैच हल्दी', nameEn:'Catch Turmeric Powder', unit:'100 g', price:35},
+  {group:'haldi', groupNameHi:'हल्दी', groupNameEn:'Haldi', icon:'🌿', brands:[
+    {id:'everest-haldi', nameHi:'एवरेस्ट हल्दी पाउडर', nameEn:'Everest Turmeric Powder', unit:'100 g', mrp:36, price:41},
+    {id:'mdh-haldi', nameHi:'एमडीएच हल्दी पाउडर', nameEn:'MDH Turmeric Powder', unit:'100 g', mrp:40, price:45},
+    {id:'catch-haldi', nameHi:'कैच हल्दी पाउडर', nameEn:'Catch Turmeric Powder', unit:'100 g', mrp:34, price:39},
+    {id:'patanjali-haldi', nameHi:'पतंजलि हल्दी पाउडर', nameEn:'Patanjali Turmeric Powder', unit:'100 g', mrp:28, price:33},
   ]},
-  {group:'sharf', groupNameHi:'शर्फ', groupNameEn:'Sharf', icon:'📦', brands:[
-    {id:'ghadi', nameHi:'घड़ी', nameEn:'Ghadi Detergent', unit:'1 kg', price:65},
-    {id:'surf-excel', nameHi:'सर्फ एक्सेल', nameEn:'Surf Excel', unit:'1 kg', price:130},
-    {id:'ariel', nameHi:'एरियल', nameEn:'Ariel', unit:'1 kg', price:135},
-    {id:'tide', nameHi:'टाइड', nameEn:'Tide', unit:'1 kg', price:110},
-    {id:'rin', nameHi:'रिन', nameEn:'Rin', unit:'1 kg', price:75},
-    {id:'wheel', nameHi:'व्हील', nameEn:'Wheel', unit:'1 kg', price:60},
+  {group:'sharf', groupNameHi:'शर्फ / डिटर्जेंट', groupNameEn:'Detergent', icon:'📦', brands:[
+    {id:'ghadi', nameHi:'घड़ी डिटर्जेंट', nameEn:'Ghadi Detergent', unit:'1 kg', mrp:74, price:79},
+    {id:'surf-excel', nameHi:'सर्फ एक्सेल', nameEn:'Surf Excel Easy Wash', unit:'1 kg', mrp:138, price:143},
+    {id:'ariel', nameHi:'एरियल', nameEn:'Ariel Perfect Wash', unit:'1 kg', mrp:140, price:145},
+    {id:'tide', nameHi:'टाइड प्लस', nameEn:'Tide Plus', unit:'1 kg', mrp:132, price:137},
+    {id:'rin', nameHi:'रिन', nameEn:'Rin Detergent', unit:'1 kg', mrp:100, price:105},
+    {id:'wheel', nameHi:'व्हील', nameEn:'Wheel Detergent', unit:'1 kg', mrp:78, price:83},
   ]},
-  {group:'saboon', groupNameHi:'साबुन', groupNameEn:'Saboon', icon:'🧼', brands:[
-    {id:'lux', nameHi:'लक्स', nameEn:'Lux', unit:'100 g', price:35},
-    {id:'dove', nameHi:'डव', nameEn:'Dove', unit:'100 g', price:55},
-    {id:'lifebuoy', nameHi:'लाइफबॉय', nameEn:'Lifebuoy', unit:'100 g', price:30},
-    {id:'pearls', nameHi:'पीयर्स', nameEn:'Pears', unit:'75 g', price:45},
-    {id:'patanjali', nameHi:'पतंजलि', nameEn:'Patanjali', unit:'75 g', price:28},
-    {id:'santoor', nameHi:'सन्तूर', nameEn:'Santoor', unit:'100 g', price:32},
-    {id:'cinthol', nameHi:'सिंथॉल', nameEn:'Cinthol', unit:'100 g', price:35},
-    {id:'godrej-no1', nameHi:'गोदरेज नंबर 1', nameEn:'Godrej No.1', unit:'100 g', price:25},
-    {id:'medimix', nameHi:'मेडिमिक्स', nameEn:'Medimix', unit:'75 g', price:38},
+  {group:'saboon', groupNameHi:'साबुन', groupNameEn:'Soap', icon:'🧼', brands:[
+    {id:'lux', nameHi:'लक्स', nameEn:'Lux', unit:'100 g', mrp:38, price:43},
+    {id:'dove', nameHi:'डव', nameEn:'Dove', unit:'100 g', mrp:58, price:63},
+    {id:'lifebuoy', nameHi:'लाइफबॉय', nameEn:'Lifebuoy', unit:'100 g', mrp:32, price:37},
+    {id:'pearls', nameHi:'पीयर्स', nameEn:'Pears', unit:'75 g', mrp:48, price:53},
+    {id:'patanjali-saboon', nameHi:'पतंजलि साबुन', nameEn:'Patanjali Soap', unit:'75 g', mrp:30, price:35},
+    {id:'santoor', nameHi:'सन्तूर', nameEn:'Santoor', unit:'100 g', mrp:35, price:40},
+    {id:'cinthol', nameHi:'सिंथॉल', nameEn:'Cinthol', unit:'100 g', mrp:37, price:42},
+    {id:'godrej-no1', nameHi:'गोदरेज नंबर 1', nameEn:'Godrej No.1', unit:'100 g', mrp:28, price:33},
+    {id:'medimix', nameHi:'मेडिमिक्स', nameEn:'Medimix', unit:'75 g', mrp:40, price:45},
   ]},
   {group:'atta', groupNameHi:'आटा', groupNameEn:'Atta', icon:'🌾', brands:[
-    {id:'aashirvaad-atta', nameHi:'आशीर्वाद आटा', nameEn:'Aashirvaad Atta', unit:'5 kg', price:280},
-    {id:'pillsbury-atta', nameHi:'पिल्सबरी आटा', nameEn:'Pillsbury Atta', unit:'5 kg', price:265},
-    {id:'fortune-atta', nameHi:'फॉर्च्यून चक्की फ्रेश आटा', nameEn:'Fortune Chakki Fresh Atta', unit:'5 kg', price:255},
-    {id:'local-atta', nameHi:'साधारण आटा', nameEn:'Local Atta', unit:'5 kg', price:220},
+    {id:'aashirvaad-atta', nameHi:'आशीर्वाद आटा', nameEn:'Aashirvaad Atta', unit:'5 kg', mrp:275, price:280},
+    {id:'pillsbury-atta', nameHi:'पिल्सबरी आटा', nameEn:'Pillsbury Atta', unit:'5 kg', mrp:258, price:263},
+    {id:'fortune-atta', nameHi:'फॉर्च्यून आटा', nameEn:'Fortune Chakki Atta', unit:'5 kg', mrp:248, price:253},
+    {id:'patanjali-atta', nameHi:'पतंजलि आटा', nameEn:'Patanjali Atta', unit:'5 kg', mrp:220, price:225},
+    {id:'local-atta', nameHi:'साधारण आटा', nameEn:'Local Atta', unit:'5 kg', mrp:210, price:215},
   ]},
   {group:'chawal', groupNameHi:'चावल', groupNameEn:'Chawal', icon:'🍙', brands:[
-    {id:'india-gate-chawal', nameHi:'इंडिया गेट बासमती चावल', nameEn:'India Gate Basmati Rice', unit:'5 kg', price:550},
-    {id:'daawat-chawal', nameHi:'दावत बासमती चावल', nameEn:'Daawat Basmati Rice', unit:'5 kg', price:580},
-    {id:'local-chawal', nameHi:'साधारण चावल', nameEn:'Local Rice', unit:'5 kg', price:260},
+    {id:'india-gate-basmati', nameHi:'इंडिया गेट बासमती', nameEn:'India Gate Basmati', unit:'5 kg', mrp:540, price:545},
+    {id:'daawat-basmati', nameHi:'दावत बासमती', nameEn:'Daawat Basmati', unit:'5 kg', mrp:560, price:565},
+    {id:'fortune-basmati', nameHi:'फॉर्च्यून बासमती', nameEn:'Fortune Basmati', unit:'5 kg', mrp:480, price:485},
+    {id:'local-chawal', nameHi:'साधारण चावल', nameEn:'Local Rice', unit:'5 kg', mrp:240, price:245},
   ]},
   {group:'tel', groupNameHi:'खाना पकाने का तेल', groupNameEn:'Cooking Oil', icon:'🛢️', brands:[
-    {id:'fortune-tel', nameHi:'फॉर्च्यून सूरजमुखी तेल', nameEn:'Fortune Sunflower Oil', unit:'1 L', price:150},
-    {id:'saffola-tel', nameHi:'सैफोला गोल्ड तेल', nameEn:'Saffola Gold Oil', unit:'1 L', price:175},
-    {id:'dhara-tel', nameHi:'धारा सरसों तेल', nameEn:'Dhara Mustard Oil', unit:'1 L', price:165},
-    {id:'patanjali-tel', nameHi:'पतंजलि सरसों तेल', nameEn:'Patanjali Mustard Oil', unit:'1 L', price:140},
+    {id:'fortune-sunflower', nameHi:'फॉर्च्यून सूरजमुखी तेल', nameEn:'Fortune Sunflower Oil', unit:'1 L', mrp:148, price:153},
+    {id:'saffola-gold', nameHi:'सैफोला गोल्ड', nameEn:'Saffola Gold Oil', unit:'1 L', mrp:172, price:177},
+    {id:'dhara-mustard', nameHi:'धारा सरसों तेल', nameEn:'Dhara Mustard Oil', unit:'1 L', mrp:160, price:165},
+    {id:'patanjali-mustard', nameHi:'पतंजलि सरसों तेल', nameEn:'Patanjali Mustard Oil', unit:'1 L', mrp:138, price:143},
+    {id:'emami-healthy-fry', nameHi:'इमामी हेल्दी फ्राई', nameEn:'Emami Healthy Fry Oil', unit:'1 L', mrp:155, price:160},
   ]},
-  {group:'chai-patti', groupNameHi:'चाय पत्ती', groupNameEn:'Chai Patti', icon:'🍵', brands:[
-    {id:'tata-tea', nameHi:'टाटा टी गोल्ड', nameEn:'Tata Tea Gold', unit:'250 g', price:130},
-    {id:'red-label', nameHi:'रेड लेबल', nameEn:'Red Label', unit:'250 g', price:120},
-    {id:'wagh-bakri', nameHi:'वाघ बकरी', nameEn:'Wagh Bakri', unit:'250 g', price:125},
-    {id:'society-tea', nameHi:'सोसाइटी टी', nameEn:'Society Tea', unit:'250 g', price:110},
+  {group:'chai', groupNameHi:'चाय पत्ती', groupNameEn:'Chai Patti', icon:'🍵', brands:[
+    {id:'tata-tea-gold', nameHi:'टाटा टी गोल्ड', nameEn:'Tata Tea Gold', unit:'250 g', mrp:128, price:133},
+    {id:'red-label', nameHi:'रेड लेबल', nameEn:'Red Label Tea', unit:'250 g', mrp:118, price:123},
+    {id:'wagh-bakri', nameHi:'वाघ बकरी', nameEn:'Wagh Bakri Tea', unit:'250 g', mrp:122, price:127},
+    {id:'society-tea', nameHi:'सोसाइटी टी', nameEn:'Society Tea', unit:'250 g', mrp:108, price:113},
+    {id:'patanjali-tea', nameHi:'पतंजलि नुट्रेला चाय', nameEn:'Patanjali Tea', unit:'250 g', mrp:90, price:95},
   ]},
   {group:'biscuit', groupNameHi:'बिस्कुट', groupNameEn:'Biscuit', icon:'🍪', brands:[
-    {id:'parle-g', nameHi:'पारले-जी', nameEn:'Parle-G', unit:'200 g', price:20},
-    {id:'good-day', nameHi:'ब्रिटानिया गुड डे', nameEn:'Britannia Good Day', unit:'150 g', price:30},
-    {id:'marie-gold', nameHi:'मैरी गोल्ड', nameEn:'Marie Gold', unit:'200 g', price:35},
-    {id:'oreo', nameHi:'ओरियो', nameEn:'Oreo', unit:'120 g', price:30},
+    {id:'parle-g', nameHi:'पारले-जी', nameEn:'Parle-G', unit:'200 g', mrp:20, price:25},
+    {id:'good-day', nameHi:'ब्रिटानिया गुड डे', nameEn:'Britannia Good Day', unit:'150 g', mrp:30, price:35},
+    {id:'marie-gold', nameHi:'मैरी गोल्ड', nameEn:'Britannia Marie Gold', unit:'200 g', mrp:35, price:40},
+    {id:'oreo', nameHi:'ओरियो', nameEn:'Oreo Biscuit', unit:'120 g', mrp:30, price:35},
+    {id:'50-50', nameHi:'50-50', nameEn:'Britannia 50-50', unit:'150 g', mrp:25, price:30},
+    {id:'hide-seek', nameHi:'हाइड एंड सीक', nameEn:'Hide & Seek', unit:'100 g', mrp:30, price:35},
   ]},
   {group:'toothpaste', groupNameHi:'टूथपेस्ट', groupNameEn:'Toothpaste', icon:'🪥', brands:[
-    {id:'colgate', nameHi:'कोलगेट', nameEn:'Colgate', unit:'100 g', price:65},
-    {id:'pepsodent', nameHi:'पेप्सोडेंट', nameEn:'Pepsodent', unit:'100 g', price:55},
-    {id:'closeup', nameHi:'क्लोज़अप', nameEn:'Close-up', unit:'100 g', price:60},
-    {id:'dant-kanti', nameHi:'पतंजलि दंत कांति', nameEn:'Patanjali Dant Kanti', unit:'100 g', price:50},
+    {id:'colgate-strong', nameHi:'कोलगेट स्ट्रॉंग टीथ', nameEn:'Colgate Strong Teeth', unit:'100 g', mrp:62, price:67},
+    {id:'colgate-max', nameHi:'कोलगेट मैक्स फ्रेश', nameEn:'Colgate MaxFresh', unit:'100 g', mrp:68, price:73},
+    {id:'pepsodent', nameHi:'पेप्सोडेंट', nameEn:'Pepsodent', unit:'100 g', mrp:54, price:59},
+    {id:'closeup', nameHi:'क्लोज़अप', nameEn:'Close-up', unit:'100 g', mrp:58, price:63},
+    {id:'dant-kanti', nameHi:'पतंजलि दंत कांति', nameEn:'Patanjali Dant Kanti', unit:'100 g', mrp:48, price:53},
+    {id:'sensodyne', nameHi:'सेंसोडाइन', nameEn:'Sensodyne', unit:'70 g', mrp:155, price:160},
   ]},
   {group:'shampoo', groupNameHi:'शैम्पू', groupNameEn:'Shampoo', icon:'🧴', brands:[
-    {id:'clinic-plus', nameHi:'क्लिनिक प्लस', nameEn:'Clinic Plus', unit:'175 ml', price:95},
-    {id:'sunsilk', nameHi:'सनसिल्क', nameEn:'Sunsilk', unit:'180 ml', price:110},
-    {id:'head-shoulders', nameHi:'हेड एंड शोल्डर्स', nameEn:'Head & Shoulders', unit:'180 ml', price:165},
-    {id:'kesh-kanti', nameHi:'पतंजलि केश कांति', nameEn:'Patanjali Kesh Kanti', unit:'200 ml', price:85},
+    {id:'clinic-plus', nameHi:'क्लिनिक प्लस', nameEn:'Clinic Plus', unit:'175 ml', mrp:92, price:97},
+    {id:'sunsilk', nameHi:'सनसिल्क', nameEn:'Sunsilk', unit:'180 ml', mrp:108, price:113},
+    {id:'head-shoulders', nameHi:'हेड एंड शोल्डर्स', nameEn:'Head & Shoulders', unit:'180 ml', mrp:162, price:167},
+    {id:'dove-shampoo', nameHi:'डव शैम्पू', nameEn:'Dove Shampoo', unit:'180 ml', mrp:175, price:180},
+    {id:'kesh-kanti', nameHi:'पतंजलि केश कांति', nameEn:'Patanjali Kesh Kanti', unit:'200 ml', mrp:82, price:87},
+    {id:'tresemme', nameHi:'ट्रेसेम्मे', nameEn:'TRESemme', unit:'185 ml', mrp:198, price:203},
   ]},
   {group:'dishwash', groupNameHi:'बर्तन धोने का साबुन', groupNameEn:'Dishwash', icon:'🧽', brands:[
-    {id:'vim-bar', nameHi:'विम बार', nameEn:'Vim Bar (3 pc)', unit:'3 pc', price:35},
-    {id:'vim-liquid', nameHi:'विम लिक्विड', nameEn:'Vim Dishwash Liquid', unit:'500 ml', price:95},
-    {id:'exo-bar', nameHi:'एक्सो बार', nameEn:'Exo Bar', unit:'1 pc', price:30},
-    {id:'pril-liquid', nameHi:'प्रिल लिक्विड', nameEn:'Pril Liquid', unit:'425 ml', price:90},
+    {id:'vim-bar', nameHi:'विम बार', nameEn:'Vim Bar', unit:'3 pc', mrp:33, price:38},
+    {id:'vim-liquid', nameHi:'विम लिक्विड', nameEn:'Vim Dishwash Liquid', unit:'500 ml', mrp:92, price:97},
+    {id:'exo-bar', nameHi:'एक्सो बार', nameEn:'Exo Bar', unit:'1 pc', mrp:28, price:33},
+    {id:'pril-liquid', nameHi:'प्रिल लिक्विड', nameEn:'Pril Liquid', unit:'425 ml', mrp:88, price:93},
+    {id:'mama-earth-dish', nameHi:'मामाअर्थ डिशवॉश', nameEn:'Mamaearth Dishwash', unit:'500 ml', mrp:199, price:204},
+  ]},
+  {group:'dal', groupNameHi:'दाल', groupNameEn:'Dal', icon:'🫘', brands:[
+    {id:'toor-dal', nameHi:'तूर दाल', nameEn:'Toor Dal', unit:'1 kg', mrp:148, price:153},
+    {id:'chana-dal', nameHi:'चना दाल', nameEn:'Chana Dal', unit:'1 kg', mrp:98, price:103},
+    {id:'moong-dal', nameHi:'मूंग दाल', nameEn:'Moong Dal', unit:'1 kg', mrp:128, price:133},
+    {id:'masoor-dal', nameHi:'मसूर दाल', nameEn:'Masoor Dal', unit:'1 kg', mrp:92, price:97},
+    {id:'urad-dal', nameHi:'उड़द दाल', nameEn:'Urad Dal', unit:'1 kg', mrp:138, price:143},
+  ]},
+  {group:'masale', groupNameHi:'मसाले', groupNameEn:'Masale', icon:'🌶️', brands:[
+    {id:'everest-lalmirch', nameHi:'एवरेस्ट लाल मिर्च', nameEn:'Everest Red Chilli', unit:'100 g', mrp:48, price:53},
+    {id:'mdh-garam-masala', nameHi:'एमडीएच गरम मसाला', nameEn:'MDH Garam Masala', unit:'100 g', mrp:58, price:63},
+    {id:'everest-dhaniya', nameHi:'एवरेस्ट धनिया पाउडर', nameEn:'Everest Coriander Powder', unit:'100 g', mrp:38, price:43},
+    {id:'catch-jeera', nameHi:'कैच जीरा पाउडर', nameEn:'Catch Jeera Powder', unit:'100 g', mrp:42, price:47},
+    {id:'patanjali-masala', nameHi:'पतंजलि किचन किंग', nameEn:'Patanjali Kitchen King', unit:'100 g', mrp:35, price:40},
   ]},
 ];
 
@@ -931,6 +957,7 @@ function groceryItemsFor(vendorId){
         name: b.nameEn,
         nameHi: b.nameHi,
         unit: b.unit,
+        mrp: b.mrp,
         price: b.price,
         icon: cat.icon,
         group: cat.group,
@@ -943,15 +970,12 @@ function groceryItemsFor(vendorId){
 }
 
 const vendors = [
-  {id:'sunil-kirana-store', name:'Sunil Kirana Store', category:'Grocery', items:groceryItemsFor('sunil-kirana-store')},
-  {id:'bhola-kirana-store', name:'Bhola Kirana Store', category:'Grocery', items:groceryItemsFor('bhola-kirana-store')},
-  {id:'manoj-dev-store', name:'Manoj Dev Store', category:'Grocery', items:groceryItemsFor('manoj-dev-store')},
-  {id:'charmuhan-par-wala', name:'Charmuhan Par Wala', category:'Grocery', items:groceryItemsFor('charmuhan-par-wala')},
+  {id:'hamara-kirana', name:'Hamara Kirana', nameHi:'हमारा किराना', category:'Grocery', items:groceryItemsFor('hamara-kirana')},
   {id:'golu-dev-milk-supplier', name:'Golu Dev Milk Supplier', category:'Dairy', items:[
-    {id:'golu-dev-1l-doodh', name:'1 Litre Fresh Gaay Ka Doodh', nameHi:'1 लीटर ताज़ा गाय का दूध', unit:'1 L', price:50, icon:'🥛'},
+    {id:'golu-dev-1l-doodh', name:'1 Litre Fresh Gaay Ka Doodh', nameHi:'1 लीटर ताज़ा गाय का दूध', unit:'1 L', mrp:50, price:55, icon:'🥛'},
   ]},
   {id:'manoj-dev-sudha-packet', name:'Manoj Dev Ke Paas Se Sudha Packet Wala', category:'Dairy', items:[
-    {id:'manoj-half-l-sudha-doodh', name:'Half Litre Sudha Doodh', nameHi:'आधा लीटर सुधा दूध', unit:'500 ml', price:33, icon:'🥛'},
+    {id:'manoj-half-l-sudha-doodh', name:'Half Litre Sudha Doodh', nameHi:'आधा लीटर सुधा दूध', unit:'500 ml', mrp:33, price:38, icon:'🥛'},
   ]},
 ];
 
@@ -1042,7 +1066,10 @@ function itemCardHtml(it){
         <div class="item-unit">${it.unit}</div>
       </div>
       <div class="item-row">
-        <span class="item-price ${it.price===undefined?'price-tbd':''}">${priceLabel}</span>
+        <div>
+          <div style="font-size:0.72rem;color:var(--ink-soft);text-decoration:line-through;">MRP ₹${it.mrp||it.price}</div>
+          <span class="item-price ${it.price===undefined?'price-tbd':''}">${it.price!==undefined ? `₹${it.price} <span style="font-size:0.7rem;color:var(--ink-soft);font-family:'Work Sans',sans-serif;font-weight:400;">(+₹5 डिलीवरी)</span>` : 'Price to be added'}</span>
+        </div>
       </div>
       ${qty===0
         ? `<button class="add-btn" data-add="${it.id}">Add</button>`
